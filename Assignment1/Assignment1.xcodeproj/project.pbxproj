@@ -14,6 +14,7 @@
 		6CC55EE41E326D35000E08CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CC55EE21E326D35000E08CF /* LaunchScreen.storyboard */; };
 		6CC55EEF1E326D36000E08CF /* Assignment1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC55EEE1E326D36000E08CF /* Assignment1Tests.swift */; };
 		6CC55EFA1E326D36000E08CF /* Assignment1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC55EF91E326D36000E08CF /* Assignment1UITests.swift */; };
+		6CC55F081E327069000E08CF /* MovieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC55F071E327069000E08CF /* MovieData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		6CC55EF51E326D36000E08CF /* Assignment1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Assignment1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC55EF91E326D36000E08CF /* Assignment1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assignment1UITests.swift; sourceTree = "<group>"; };
 		6CC55EFB1E326D36000E08CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CC55F071E327069000E08CF /* MovieData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				6CC55ED91E326D35000E08CF /* AppDelegate.swift */,
 				6CC55EDB1E326D35000E08CF /* ViewController.swift */,
 				6CC55EDD1E326D35000E08CF /* Main.storyboard */,
+				6CC55F071E327069000E08CF /* MovieData.swift */,
 				6CC55EE01E326D35000E08CF /* Assets.xcassets */,
 				6CC55EE21E326D35000E08CF /* LaunchScreen.storyboard */,
 				6CC55EE51E326D35000E08CF /* Info.plist */,
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CC55F081E327069000E08CF /* MovieData.swift in Sources */,
 				6CC55EDC1E326D35000E08CF /* ViewController.swift in Sources */,
 				6CC55EDA1E326D35000E08CF /* AppDelegate.swift in Sources */,
 			);

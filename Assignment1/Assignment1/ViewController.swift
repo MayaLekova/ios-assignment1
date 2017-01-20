@@ -9,10 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet var tableView: UITableView!
+    
+    let movieData = MovieData()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.dataSource = movieData
     }
 
     override func didReceiveMemoryWarning() {
