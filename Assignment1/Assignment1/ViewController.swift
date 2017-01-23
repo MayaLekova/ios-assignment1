@@ -11,7 +11,6 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
-    let movieData = MovieData()
     var episodes: Array<Episodes>? {
         didSet{
             //everytime savedarticles is added to or deleted from table is refreshed
@@ -25,6 +24,7 @@ class ViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         // Register to receive notification data
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.notifyObservers), name:  NSNotification.Name(rawValue: "gotMovieData"), object: nil)
+        MovieData.sharedInstance.parseData()
 
     }
 
@@ -38,10 +38,8 @@ class ViewController: UIViewController {
      - parameter notification : NSNotification The data passed as key value dictionary to our listener method
      */
     func notifyObservers(notification : NSNotification) {
-        var epsiodeInfo = notification.userInfo as! Dictionary<String,Episodes?>
-        print(epsiodeInfo)
-        //now unwrap the data... set the array
-
+        let episodeInfo = notification.userInfo as? Dictionary<String,Array<Episodes>?>
+        episodes = episodeInfo?["episode"] ?? Array<Episodes>()
     }
 
 }
