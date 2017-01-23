@@ -42,6 +42,10 @@ class ViewController: UIViewController {
         episodes = episodeInfo?["episode"] ?? Array<Episodes>()
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
 }
 
 extension ViewController: UITableViewDataSource {
