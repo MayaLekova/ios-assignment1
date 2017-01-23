@@ -83,6 +83,7 @@
 		6C549BD21E337D0E006C5687 /* OMDBModel */ = {
 			isa = PBXGroup;
 			children = (
+				6CC55F071E327069000E08CF /* MovieData.swift */,
 				6C549BD31E337D23006C5687 /* Episodes.swift */,
 				6C549BD41E337D23006C5687 /* Json4Swift_Base.swift */,
 			);
@@ -116,7 +117,6 @@
 				6CC55ED91E326D35000E08CF /* AppDelegate.swift */,
 				6CC55EDB1E326D35000E08CF /* ViewController.swift */,
 				6CC55EDD1E326D35000E08CF /* Main.storyboard */,
-				6CC55F071E327069000E08CF /* MovieData.swift */,
 				6CC55EE01E326D35000E08CF /* Assets.xcassets */,
 				6CC55EE21E326D35000E08CF /* LaunchScreen.storyboard */,
 				6CC55EE51E326D35000E08CF /* Info.plist */,
@@ -210,6 +210,7 @@
 				TargetAttributes = {
 					6CC55ED51E326D35000E08CF = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = CWK29L7ZPT;
 						ProvisioningStyle = Automatic;
 					};
 					6CC55EE91E326D36000E08CF = {
@@ -432,11 +433,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = CWK29L7ZPT;
 				INFOPLIST_FILE = Assignment1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Acme.Assignment1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -444,11 +447,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = CWK29L7ZPT;
 				INFOPLIST_FILE = Assignment1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Acme.Assignment1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

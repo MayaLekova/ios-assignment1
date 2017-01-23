@@ -42,6 +42,9 @@ class MovieData: NSObject {
                 if let movieObj = Json4Swift_Base(dictionary: movieData)
                 {
                     episodes = movieObj.episodes
+                    //post our data
+                    let episodesLoaded = ["episode" : episodes]
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieData"), object: nil , userInfo: episodesLoaded)
                     // maybe retrieve data with pictures from http://www.omdbapi.com/?s=Batman
                     // and construct custom cells with pictures
                 } else {
@@ -54,19 +57,5 @@ class MovieData: NSObject {
         } else {
             print("Unable to parse JSON")
         }
-    }
-}
-
-extension MovieData: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (episodes?.count) ?? 0
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let item = episodes?[indexPath.row].title ?? "Unknown entry"
-        
-        cell.textLabel!.text = item
-        
-        return cell
     }
 }
