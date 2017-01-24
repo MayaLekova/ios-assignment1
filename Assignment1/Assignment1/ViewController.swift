@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
@@ -55,8 +56,11 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let item = episodes?[indexPath.row].title ?? "Unknown entry"
-        
         cell.textLabel!.text = item
+        
+        let url = URL(string: episodes?[indexPath.row].poster ?? "")
+        // Make sure to have placeholder as described in https://github.com/rs/SDWebImage/issues/9
+        cell.imageView?.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "Placeholder"))
         
         return cell
     }
