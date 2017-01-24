@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
-    var episodes: Array<Episodes>? {
+    var episodes: Array<Search>? {
         didSet{
             //everytime savedarticles is added to or deleted from table is refreshed
             self.tableView.reloadData()
@@ -38,8 +38,8 @@ class ViewController: UIViewController {
      - parameter notification : NSNotification The data passed as key value dictionary to our listener method
      */
     func notifyObservers(notification : NSNotification) {
-        let episodeInfo = notification.userInfo as? Dictionary<String,Array<Episodes>?>
-        episodes = episodeInfo?["episode"] ?? Array<Episodes>()
+        let episodeInfo = notification.userInfo as? Dictionary<String,Array<Search>?>
+        episodes = episodeInfo?["episode"] ?? Array<Search>()
     }
 
     deinit {

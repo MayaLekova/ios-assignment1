@@ -12,27 +12,29 @@ import Foundation
  
 /* For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
-public class Json4Swift_Base {
-	public var search : Array<Search>?
-	public var totalResults : Int?
-	public var response : Bool?
+public class Search {
+	public var title : String?
+	public var year : String?
+	public var imdbID : String?
+	public var type : String?
+	public var poster : String?
 
 /**
     Returns an array of models based on given dictionary.
     
     Sample usage:
-    let json4Swift_Base_list = Json4Swift_Base.modelsFromDictionaryArray(someDictionaryArrayFromJSON)
+    let search_list = Search.modelsFromDictionaryArray(someDictionaryArrayFromJSON)
 
     - parameter array:  NSArray from JSON dictionary.
 
-    - returns: Array of Json4Swift_Base Instances.
+    - returns: Array of Search Instances.
 */
-    public class func modelsFromDictionaryArray(array:NSArray) -> [Json4Swift_Base]
+    public class func modelsFromDictionaryArray(array:NSArray) -> [Search]
     {
-        var models:[Json4Swift_Base] = []
+        var models:[Search] = []
         for item in array
         {
-            models.append(Json4Swift_Base(dictionary: item as! NSDictionary)!)
+            models.append(Search(dictionary: item as! NSDictionary)!)
         }
         return models
     }
@@ -41,17 +43,19 @@ public class Json4Swift_Base {
     Constructs the object based on the given dictionary.
     
     Sample usage:
-    let json4Swift_Base = Json4Swift_Base(someDictionaryFromJSON)
+    let search = Search(someDictionaryFromJSON)
 
     - parameter dictionary:  NSDictionary from JSON.
 
-    - returns: Json4Swift_Base Instance.
+    - returns: Search Instance.
 */
 	required public init?(dictionary: NSDictionary) {
 
-		if (dictionary["Search"] != nil) { search = Search.modelsFromDictionaryArray(array: dictionary["Search"] as! NSArray) }
-		totalResults = dictionary["totalResults"] as? Int
-		response = dictionary["Response"] as? Bool
+		title = dictionary["Title"] as? String
+		year = dictionary["Year"] as? String
+		imdbID = dictionary["imdbID"] as? String
+		type = dictionary["Type"] as? String
+		poster = dictionary["Poster"] as? String
 	}
 
 		
@@ -64,8 +68,11 @@ public class Json4Swift_Base {
 
 		let dictionary = NSMutableDictionary()
 
-		dictionary.setValue(self.totalResults, forKey: "totalResults")
-		dictionary.setValue(self.response, forKey: "Response")
+		dictionary.setValue(self.title, forKey: "Title")
+		dictionary.setValue(self.year, forKey: "Year")
+		dictionary.setValue(self.imdbID, forKey: "imdbID")
+		dictionary.setValue(self.type, forKey: "Type")
+		dictionary.setValue(self.poster, forKey: "Poster")
 
 		return dictionary
 	}

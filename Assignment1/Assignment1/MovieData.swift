@@ -32,7 +32,7 @@ extension String {
 }
 
 class MovieData {
-    var episodes: Array<Episodes>?
+    var episodes: Array<Search>?
 
     var json = "Invalid"
 
@@ -41,7 +41,7 @@ class MovieData {
     }
     
     func parseData() {
-        Alamofire.request("https://www.omdbapi.com/?t=Futurama&Season=1").responseString { response in
+        Alamofire.request("https://www.omdbapi.com/?s=Game%20of%20Thrones&page=1&type=series").responseString { response in
             print(response.request)  // original URL request
             print(response.response) // HTTP URL response
             print(response.data)     // server data
@@ -54,12 +54,10 @@ class MovieData {
                     if let movieData = jsonObj as? NSDictionary {
                         if let movieObj = Json4Swift_Base(dictionary: movieData)
                         {
-                            self.episodes = movieObj.episodes
+                            self.episodes = movieObj.search
                             //post our data
                             let episodesLoaded = ["episode" : self.episodes]
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieData"), object: self , userInfo: episodesLoaded)
-                            // maybe retrieve data with pictures from http://www.omdbapi.com/?s=Batman
-                            // and construct custom cells with pictures
                         } else {
                             print("Unable to construct movie object")
                         }
