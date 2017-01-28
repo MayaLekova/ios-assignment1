@@ -21,8 +21,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        let nib = UINib(nibName: "MoviePreview", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "MoviePreview")
+        
         // Register to receive notification data
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.notifyObservers), name:  NSNotification.Name(rawValue: "gotMovieData"), object: nil)
         MovieData.sharedInstance.parseData()
@@ -54,13 +57,10 @@ extension ViewController: UITableViewDataSource {
         return (episodes?.count) ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let item = episodes?[indexPath.row].title ?? "Unknown entry"
-        cell.textLabel!.text = item
-        
-        let url = URL(string: episodes?[indexPath.row].poster ?? "")
-        // Make sure to have placeholder as described in https://github.com/rs/SDWebImage/issues/9
-        cell.imageView?.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "Placeholder"))
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MoviePreview", for: indexPath) as! MoviePreviewTableViewCell
+        if let item = episodes?[indexPath.row] {
+            cell.setDataForView(movieData: item)
+        }
         
         return cell
     }
