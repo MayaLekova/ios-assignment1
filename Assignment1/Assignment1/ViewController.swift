@@ -23,8 +23,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-        let nib = UINib(nibName: "MoviePreview", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "MoviePreview")
+        let nib = UINib(nibName: "MoviePreviewTableViewCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "MoviePreviewTableViewCell")
         
         // Register to receive notification data
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.notifyObservers), name:  NSNotification.Name(rawValue: "gotMovieData"), object: nil)
@@ -57,7 +57,7 @@ extension ViewController: UITableViewDataSource {
         return (episodes?.count) ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MoviePreview", for: indexPath) as! MoviePreviewTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MoviePreviewTableViewCell", for: indexPath) as! MoviePreviewTableViewCell
         if let item = episodes?[indexPath.row] {
             cell.setDataForView(movieData: item)
         }
