@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,30 +15,61 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MoviePreviewTableViewCell" rowHeight="92" id="KGk-i7-Jjw" customClass="MoviePreviewTableViewCell" customModule="Assignment1" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="92"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="91.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rjf-DM-TcB">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rjf-DM-TcB">
                         <rect key="frame" x="8" y="17" width="40" height="56"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="ML8-gn-KsX"/>
+                            <constraint firstAttribute="height" constant="56" id="gpm-Gc-1gA"/>
+                        </constraints>
                     </imageView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="C3C-id-4aL">
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="C3C-id-4aL">
                         <rect key="frame" x="72" y="22" width="240" height="62"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="240" id="L0M-4I-vPK"/>
+                        </constraints>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKi-HB-4AR">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKi-HB-4AR">
                         <rect key="frame" x="56" y="2" width="232" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="232" id="27m-Ea-2Ae"/>
+                            <constraint firstAttribute="height" constant="21" id="XLv-xN-bSL"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="RKi-HB-4AR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5iz-KN-lBu"/>
+                    <constraint firstItem="Rjf-DM-TcB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="6ZZ-05-YWg"/>
+                    <constraint firstItem="Rjf-DM-TcB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="BhT-AS-CcD"/>
+                    <constraint firstAttribute="bottom" secondItem="RKi-HB-4AR" secondAttribute="bottom" constant="8" id="FK5-dL-PB5"/>
+                    <constraint firstItem="RKi-HB-4AR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="ICt-XJ-6yT"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Rjf-DM-TcB" secondAttribute="bottom" constant="4" id="IxL-ik-yBs"/>
+                    <constraint firstAttribute="bottom" secondItem="C3C-id-4aL" secondAttribute="bottom" id="cdW-aW-Eq3"/>
+                    <constraint firstItem="Rjf-DM-TcB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="eKe-Ep-ZQt"/>
+                    <constraint firstItem="C3C-id-4aL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="nQL-id-XSb"/>
+                    <constraint firstItem="C3C-id-4aL" firstAttribute="top" secondItem="RKi-HB-4AR" secondAttribute="bottom" constant="2" id="ogy-l4-Mpy"/>
+                    <constraint firstItem="RKi-HB-4AR" firstAttribute="leading" secondItem="Rjf-DM-TcB" secondAttribute="trailing" constant="8" id="oi4-jv-AmF"/>
+                    <constraint firstItem="RKi-HB-4AR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="48" id="q55-aU-ozn"/>
+                    <constraint firstItem="C3C-id-4aL" firstAttribute="leading" secondItem="Rjf-DM-TcB" secondAttribute="trailing" constant="8" id="tXh-37-3KJ"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="eKe-Ep-ZQt"/>
+                        <exclude reference="5iz-KN-lBu"/>
+                        <exclude reference="q55-aU-ozn"/>
+                        <exclude reference="nQL-id-XSb"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="movieDescription" destination="C3C-id-4aL" id="0Qb-wl-lMV"/>
