@@ -29,21 +29,42 @@
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="UlS-oR-eGy"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JIh-Ag-5K5">
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZNJ-8F-WiV">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="e5K-oA-i5t"/>
+                                </connections>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
+                        <outlet property="searchDisplayController" destination="zD6-Nc-0DP" id="lKl-JX-pLc"/>
                         <outlet property="tableView" destination="f3r-el-Vmj" id="kgS-VO-Xa0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="VFq-H3-bYU">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="hgX-1p-j5Y"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="p0o-gw-yq2"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="Hu5-d6-pb7"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="wf7-Xi-cdg"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="zD6-Nc-0DP">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="bAr-dw-aVA"/>
+                        <outlet property="searchBar" destination="ZNJ-8F-WiV" id="XFe-ki-c38"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="Amd-7v-LeG"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="vFo-cD-lVS"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="paW-83-P03"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-7.2000000000000002" y="83.208395802098963"/>
+            <point key="canvasLocation" x="-18" y="84"/>
         </scene>
     </scenes>
 </document>

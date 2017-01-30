@@ -11,6 +11,7 @@
 		4BBC929F9FC9A1282B3D0C4B /* Pods_Assignment1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71D5699B40E1FFFF1D8E8B25 /* Pods_Assignment1.framework */; };
 		6C549BD51E337D23006C5687 /* Episodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C549BD31E337D23006C5687 /* Episodes.swift */; };
 		6C549BD61E337D23006C5687 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C549BD41E337D23006C5687 /* Json4Swift_Base.swift */; };
+		6C6D63C91E3FA01F000877A3 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6D63C81E3FA01F000877A3 /* APIController.swift */; };
 		6CA78D6E1E3CB5F7006B9D60 /* MoviePreviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA78D6C1E3CB5F7006B9D60 /* MoviePreviewTableViewCell.swift */; };
 		6CA78D6F1E3CB5F7006B9D60 /* MoviePreviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6CA78D6D1E3CB5F7006B9D60 /* MoviePreviewTableViewCell.xib */; };
 		6CC55EDA1E326D35000E08CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC55ED91E326D35000E08CF /* AppDelegate.swift */; };
@@ -50,6 +51,7 @@
 		46C3EDA5D1E0AE4E63F10B9C /* Pods-Assignment1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assignment1.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Assignment1/Pods-Assignment1.debug.xcconfig"; sourceTree = "<group>"; };
 		6C549BD31E337D23006C5687 /* Episodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Episodes.swift; path = OMDBModel/Episodes.swift; sourceTree = "<group>"; };
 		6C549BD41E337D23006C5687 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Json4Swift_Base.swift; path = OMDBModel/Json4Swift_Base.swift; sourceTree = "<group>"; };
+		6C6D63C81E3FA01F000877A3 /* APIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 		6CA78D6C1E3CB5F7006B9D60 /* MoviePreviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoviePreviewTableViewCell.swift; path = "Custom Table Cells/MoviePreviewTableViewCell.swift"; sourceTree = "<group>"; };
 		6CA78D6D1E3CB5F7006B9D60 /* MoviePreviewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MoviePreviewTableViewCell.xib; path = "Custom Table Cells/MoviePreviewTableViewCell.xib"; sourceTree = "<group>"; };
 		6CC55ED61E326D35000E08CF /* Assignment1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,11 +130,19 @@
 			isa = PBXGroup;
 			children = (
 				6CCBCBFF1E37B08D00492065 /* Search.swift */,
-				6CC55F071E327069000E08CF /* MovieData.swift */,
 				6C549BD31E337D23006C5687 /* Episodes.swift */,
 				6C549BD41E337D23006C5687 /* Json4Swift_Base.swift */,
 			);
 			name = OMDBModel;
+			sourceTree = "<group>";
+		};
+		6C6D63C71E3F9FDF000877A3 /* OMDBService */ = {
+			isa = PBXGroup;
+			children = (
+				6CC55F071E327069000E08CF /* MovieData.swift */,
+				6C6D63C81E3FA01F000877A3 /* APIController.swift */,
+			);
+			name = OMDBService;
 			sourceTree = "<group>";
 		};
 		6CA78D701E3CB5FD006B9D60 /* Custom Table Cells */ = {
@@ -169,6 +179,7 @@
 		6CC55ED81E326D35000E08CF /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
+				6C6D63C71E3F9FDF000877A3 /* OMDBService */,
 				6CA78D701E3CB5FD006B9D60 /* Custom Table Cells */,
 				6C549BD21E337D0E006C5687 /* OMDBModel */,
 				6CC55ED91E326D35000E08CF /* AppDelegate.swift */,
@@ -486,6 +497,7 @@
 				6C549BD51E337D23006C5687 /* Episodes.swift in Sources */,
 				6CC55EDC1E326D35000E08CF /* ViewController.swift in Sources */,
 				6CA78D6E1E3CB5F7006B9D60 /* MoviePreviewTableViewCell.swift in Sources */,
+				6C6D63C91E3FA01F000877A3 /* APIController.swift in Sources */,
 				6CCBCC001E37B08E00492065 /* Search.swift in Sources */,
 				6C549BD61E337D23006C5687 /* Json4Swift_Base.swift in Sources */,
 				6CC55EDA1E326D35000E08CF /* AppDelegate.swift in Sources */,

@@ -33,20 +33,20 @@ extension String {
 
 class MovieData {
     var episodes: Array<Search>?
-
     var json = "Invalid"
+    
+    static fileprivate let apiController = APIController()
 
     static let sharedInstance = MovieData()
     private init() {
     }
     
-    func parseData() {
-        Alamofire.request("https://www.omdbapi.com/?s=Game%20of%20Thrones&page=1&type=series").responseString { response in
-            print(response.request)  // original URL request
-            print(response.response) // HTTP URL response
-            print(response.data)     // server data
-            print(response.result)   // result of response serialization
-            
+    func parseData(movieTitle: String) {
+        guard let url = MovieData.apiController.createURLWithComponents(movieTitle: movieTitle) else {
+            print("invalid URL")
+            return
+        }
+        Alamofire.request(url).responseString { response in            
             if let JSON = response.result.value {
                 self.json = JSON
                 
