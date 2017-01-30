@@ -42,11 +42,13 @@ class MovieData {
     }
     
     func parseData(movieTitle: String) {
+        // TODO: get rid of temporary data
+        self.episodes = []
         guard let url = MovieData.apiController.createURLWithComponents(movieTitle: movieTitle) else {
             print("invalid URL")
             return
         }
-        Alamofire.request(url).responseString { response in            
+        Alamofire.request(url).responseString { response in
             if let JSON = response.result.value {
                 self.json = JSON
                 

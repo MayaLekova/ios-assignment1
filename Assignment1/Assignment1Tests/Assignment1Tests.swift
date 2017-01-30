@@ -21,11 +21,16 @@ class Assignment1Tests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testParseDataSucceeds() {
+        MovieData.sharedInstance.parseData(movieTitle: "Batman")
+        XCTAssert(MovieData.sharedInstance.episodes!.count > 0)
     }
-    
+
+    func testParseDataFails() {
+        MovieData.sharedInstance.parseData(movieTitle: "BabaTiTrankina")
+        XCTAssert(MovieData.sharedInstance.episodes!.count == 0)
+    }
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
