@@ -108,6 +108,17 @@ extension ViewController: UITableViewDelegate {
             print("ERROR: episode without imdbID")
         }
     }
+    func tableView(_ tableView: UITableView,
+                   willDisplay cell: UITableViewCell,
+                   forRowAt indexPath: IndexPath) {
+        let lastElement = (episodes?.count ?? 0) - 1
+        print(indexPath.row)
+        if indexPath.row == lastElement {
+            // TODO: check if there are more pages to load
+            self.currentPage += 1
+            MovieData.sharedInstance.searchForMovies(movieTitle: searchController.searchBar.text!, page: self.currentPage)
+        }
+    }
 }
 
 // MARK: Search Scheduler

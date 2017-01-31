@@ -30,8 +30,16 @@ class APIController {
             return nil
         }
     }
-    
-    func createURLWithComponents(term: SearchTerm) -> URL? {
+    private static func pageNumber(by term: SearchTerm, page: Int = 1) -> URLQueryItem? {
+        switch term {
+        case .byTitle:
+            return URLQueryItem(name: "page", value: "\(page)")
+        default:
+            return nil
+        }
+    }
+   
+    func createURLWithComponents(term: SearchTerm, page: Int = 1) -> URL? {
         let urlComponents = NSURLComponents()
         urlComponents.scheme = "https";
         urlComponents.host = "www.omdbapi.com";
@@ -40,6 +48,7 @@ class APIController {
         // add params
         let searchQuery = APIController.searchQuery(by: term)
         let plotLength = APIController.plotLength(by: term)
+        let pageNumber = APIController.pageNumber(by: term, page: page)
         // TODO:
 //        type 	No 	movie, series, episode 	<empty> 	Type of result to return.
 //        y 	No 		<empty> 	Year of release.
@@ -51,6 +60,9 @@ class APIController {
         urlComponents.queryItems = [searchQuery]
         if plotLength != nil {
             urlComponents.queryItems?.append(plotLength!)
+        }
+        if pageNumber != nil {
+            urlComponents.queryItems?.append(pageNumber!)
         }
         
         return urlComponents.url

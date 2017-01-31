@@ -41,7 +41,7 @@ class MovieData {
     private init() {
     }
     
-    func searchForMovies(movieTitle: String) {
+    func searchForMovies(movieTitle: String, page: Int = 1) {
         // TODO: get rid of temporary data
         self.episodes = []
         guard let url = MovieData.apiController.createURLWithComponents(term: SearchTerm.byTitle(movieTitle)) else {
