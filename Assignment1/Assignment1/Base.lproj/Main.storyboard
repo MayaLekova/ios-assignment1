@@ -6,13 +6,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Movies Table-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Movies Table" id="BYZ-38-t0r" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -27,6 +28,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="UlS-oR-eGy"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="tUt-R9-Bid"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -35,6 +37,7 @@
                     <navigationItem key="navigationItem" id="XCL-MN-Q6G"/>
                     <connections>
                         <outlet property="tableView" destination="f3r-el-Vmj" id="kgS-VO-Xa0"/>
+                        <segue destination="aei-ae-ElU" kind="show" identifier="detailView" id="wyh-Yb-DEK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -48,6 +51,66 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="920.79999999999995" y="83.208395802098963"/>
+        </scene>
+        <!--Movie Details-->
+        <scene sceneID="ci8-pq-amk">
+            <objects>
+                <viewController title="Movie Details" id="aei-ae-ElU" customClass="DetailViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YcB-DX-j47"/>
+                        <viewControllerLayoutGuide type="bottom" id="PXA-gD-EXL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PF6-FM-pRO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="05x-R2-8aS">
+                                <rect key="frame" x="32" y="85" width="311" height="82"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="82" id="GzC-eN-oQZ"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jCw-Xy-i32">
+                                <rect key="frame" x="108" y="175" width="158" height="225"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="225" id="ec0-jk-YPz"/>
+                                    <constraint firstAttribute="width" constant="158" id="t3N-uw-JQU"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1KO-eA-CEO">
+                                <rect key="frame" x="32" y="418" width="311" height="229"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="05x-R2-8aS" secondAttribute="trailing" constant="16" id="3IJ-7A-W1e"/>
+                            <constraint firstItem="1KO-eA-CEO" firstAttribute="leading" secondItem="PF6-FM-pRO" secondAttribute="leadingMargin" constant="16" id="8xc-Jd-8Tj"/>
+                            <constraint firstItem="1KO-eA-CEO" firstAttribute="top" secondItem="jCw-Xy-i32" secondAttribute="bottom" constant="18" id="Dm1-Be-Y93"/>
+                            <constraint firstItem="jCw-Xy-i32" firstAttribute="centerX" secondItem="05x-R2-8aS" secondAttribute="centerX" id="Fks-V6-1J0"/>
+                            <constraint firstItem="05x-R2-8aS" firstAttribute="leading" secondItem="PF6-FM-pRO" secondAttribute="leadingMargin" constant="16" id="JYx-Jx-ibP"/>
+                            <constraint firstItem="05x-R2-8aS" firstAttribute="top" secondItem="YcB-DX-j47" secondAttribute="bottom" constant="21" id="NWy-x4-csn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1KO-eA-CEO" secondAttribute="trailing" constant="16" id="Xyv-2J-ToO"/>
+                            <constraint firstItem="jCw-Xy-i32" firstAttribute="top" secondItem="05x-R2-8aS" secondAttribute="bottom" constant="8" id="ZIo-oH-fRG"/>
+                            <constraint firstItem="PXA-gD-EXL" firstAttribute="top" secondItem="1KO-eA-CEO" secondAttribute="bottom" constant="20" id="fuk-K8-WOS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="moviePlot" destination="1KO-eA-CEO" id="jgU-4x-OrB"/>
+                        <outlet property="moviePoster" destination="jCw-Xy-i32" id="7iC-Jy-gQM"/>
+                        <outlet property="movieTitle" destination="05x-R2-8aS" id="3Q3-sR-Yje"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QR9-Uh-RR0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1812" y="86.806596701649184"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CKK-3F-1QI">

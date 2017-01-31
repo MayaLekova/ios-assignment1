@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     }
     
     var currentPage = 0
+    var currentEpisode: MovieDetails?
     
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -36,17 +37,26 @@ class ViewController: UIViewController {
         searchController.definesPresentationContext = true
         
         // Attach the newly created searchBar to the table's header
-        tableView.tableHeaderView = searchController.searchBar
+        self.tableView.tableHeaderView = searchController.searchBar
         
         // TODO: Localize titles
         searchController.searchBar.scopeButtonTitles = ["Movie", "Episode", "Series", "All"]
         searchController.searchBar.delegate = self
         
         // Register to receive notification data
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.notifyObservers), name:  NSNotification.Name(rawValue: "gotMovieData"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.updateMovieData), name:  NSNotification.Name(rawValue: "gotMovieData"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.updateMovieDetails), name:  NSNotification.Name(rawValue: "gotMovieDetails"), object: nil)
+        
         // TODO: get movieTitle from search bar
         MovieData.sharedInstance.searchForMovies(movieTitle: "Futurama")
-
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if segue.identifier == "detailView" {
+            let detailView = segue.destination as! DetailViewController
+            detailView.movieDetails = self.currentEpisode
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,9 +68,17 @@ class ViewController: UIViewController {
      
      - parameter notification : NSNotification The data passed as key value dictionary to our listener method
      */
-    func notifyObservers(notification : NSNotification) {
+    func updateMovieData(notification : NSNotification) {
         let episodeInfo = notification.userInfo as? Dictionary<String,Array<Search>?>
         episodes = episodeInfo?["episode"] ?? Array<Search>()
+    }
+
+    func updateMovieDetails(notification : NSNotification) {
+        let movieDetailsObj = notification.userInfo as? Dictionary<String,MovieDetails>
+        if let movieDetails = movieDetailsObj?["details"] {
+            self.currentEpisode = movieDetails
+            self.performSegue(withIdentifier: "detailView", sender: nil)
+        }
     }
 
     deinit {
@@ -82,6 +100,17 @@ extension ViewController: UITableViewDataSource {
         }
         
         return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentEpisode = episodes?[indexPath.row]
+        if let imdbID = currentEpisode?.imdbID {
+            MovieData.sharedInstance.obtainMovieDetails(imdbID: imdbID)
+        } else {
+            print("ERROR: episode without imdbID")
+        }
     }
 }
 

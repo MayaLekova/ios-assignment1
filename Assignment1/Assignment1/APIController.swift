@@ -22,6 +22,14 @@ class APIController {
             return URLQueryItem(name: "i", value: imdbID)
         }
     }
+    private static func plotLength(by term: SearchTerm) -> URLQueryItem? {
+        switch term {
+        case .byImdbID:
+            return URLQueryItem(name: "plot", value: "full")
+        default:
+            return nil
+        }
+    }
     
     func createURLWithComponents(term: SearchTerm) -> URL? {
         let urlComponents = NSURLComponents()
@@ -31,6 +39,7 @@ class APIController {
         
         // add params
         let searchQuery = APIController.searchQuery(by: term)
+        let plotLength = APIController.plotLength(by: term)
         // TODO:
 //        type 	No 	movie, series, episode 	<empty> 	Type of result to return.
 //        y 	No 		<empty> 	Year of release.
@@ -40,6 +49,9 @@ class APIController {
 //        v 	No 		1 	API version (reserved for future use).
         
         urlComponents.queryItems = [searchQuery]
+        if plotLength != nil {
+            urlComponents.queryItems?.append(plotLength!)
+        }
         
         return urlComponents.url
     }

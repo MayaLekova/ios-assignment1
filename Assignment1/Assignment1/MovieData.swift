@@ -80,10 +80,20 @@ class MovieData {
             return
         }
         Alamofire.request(url).responseString { response in
+            guard response.result.isSuccess else {
+                print("ERROR: unable to obtain movie details for imdbID: \(imdbID)")
+                return
+            }
             if let JSON = response.result.value,
             let jsonObj = JSON.parseJSONString,
             let movieData = jsonObj as? NSDictionary,
             let movieObj = MovieDetails(dictionary: movieData) {
+                if movieObj.response != nil && movieObj.response! == false {
+                    let errorObj = APIResponse(dictionary: movieData)
+                    print("\(errorObj!) while trying to obtain movie details for imdbID: \(imdbID)")
+                    return
+                }
+                
                 let movieDetails = ["details": movieObj]
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieDetails"), object: self , userInfo: movieDetails)
             }
