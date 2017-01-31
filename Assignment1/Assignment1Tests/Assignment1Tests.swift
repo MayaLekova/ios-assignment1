@@ -33,14 +33,18 @@ class Assignment1Tests: XCTestCase {
     }
     
     func testMovieDetails() {
+        let exp = expectation(description: "Alamofire")
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "gotMovieDetails"), object: nil, queue: nil, using: {
             notification in
                 let movieDetailsObj = notification.userInfo as? Dictionary<String,MovieDetails>
                 let movieDetails = movieDetailsObj?["details"] ?? nil
                 XCTAssert((movieDetails != nil))
                 XCTAssert(movieDetails!.title == "Futurama")
+            
+                exp.fulfill()
         })
         MovieData.sharedInstance.obtainMovieDetails(imdbID: "tt0149460")
+        waitForExpectations(timeout: 5.0, handler: nil)
     }
 
     func testPerformanceExample() {
