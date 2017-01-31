@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     
     var episodes: Array<Search>? {
         didSet{
-            //everytime savedarticles is added to or deleted from table is refreshed
             self.tableView.reloadData()
         }
     }
@@ -46,9 +45,6 @@ class ViewController: UIViewController {
         // Register to receive notification data
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.updateMovieData), name:  NSNotification.Name(rawValue: "gotMovieData"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.updateMovieDetails), name:  NSNotification.Name(rawValue: "gotMovieDetails"), object: nil)
-        
-        // TODO: get movieTitle from search bar
-        MovieData.sharedInstance.searchForMovies(movieTitle: "Futurama")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -80,7 +76,7 @@ class ViewController: UIViewController {
             self.performSegue(withIdentifier: "detailView", sender: nil)
         }
     }
-
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -118,7 +114,7 @@ extension ViewController: UITableViewDelegate {
 
 extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for: UISearchController) {
-        // TODO fire scheduleSearch
+//        filterContentForSearchText(searchController.searchBar.text!)
     }
 }
 
@@ -126,7 +122,7 @@ extension ViewController: UISearchResultsUpdating {
 
 extension ViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // TODO
+        MovieData.sharedInstance.searchForMovies(movieTitle: searchBar.text!)
     }
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         // TODO
