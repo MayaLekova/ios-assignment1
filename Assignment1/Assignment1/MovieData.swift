@@ -48,28 +48,15 @@ class MovieData {
             print("ERROR: invalid URL for movieTitle \(movieTitle)")
             return
         }
+        
         Alamofire.request(url).responseString { response in
-            if let JSON = response.result.value {
-                self.json = JSON
-                
-                if let jsonObj = self.json.parseJSONString {
-                    if let movieData = jsonObj as? NSDictionary {
-                        if let movieObj = Json4Swift_Base(dictionary: movieData)
-                        {
-                            self.episodes = movieObj.search
-                            //post our data
-                            let episodesLoaded = ["episode" : self.episodes]
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieData"), object: self , userInfo: episodesLoaded)
-                        } else {
-                            print("Unable to construct movie object")
-                        }
-                    } else {
-                        print("Unable to interpret parsed object as dictionary")
-                        print(jsonObj)
-                    }
-                } else {
-                    print("Unable to parse JSON")
-                }
+            if let JSON = response.result.value,
+            let jsonObj = JSON.parseJSONString,
+            let movieData = jsonObj as? NSDictionary,
+            let movieObj = Json4Swift_Base(dictionary: movieData){
+                self.episodes = movieObj.search
+                let episodesLoaded = ["episode" : self.episodes]
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieData"), object: self , userInfo: episodesLoaded)
             }
         }
     }
