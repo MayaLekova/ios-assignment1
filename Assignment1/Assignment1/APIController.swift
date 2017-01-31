@@ -8,15 +8,29 @@
 
 import Foundation
 
+enum SearchTerm {
+    case byTitle(String)
+    case byImdbID(String)
+}
+
 class APIController {
-    func createURLWithComponents(movieTitle: String) -> URL? {
+    private static func searchQuery(by term: SearchTerm) -> URLQueryItem {
+        switch term {
+        case .byTitle(let title):
+            return URLQueryItem(name: "s", value: title)
+        case .byImdbID(let imdbID):
+            return URLQueryItem(name: "i", value: imdbID)
+        }
+    }
+    
+    func createURLWithComponents(term: SearchTerm) -> URL? {
         let urlComponents = NSURLComponents()
         urlComponents.scheme = "https";
         urlComponents.host = "www.omdbapi.com";
         urlComponents.path = "";
         
         // add params
-        let searchQuery = URLQueryItem(name: "s", value: movieTitle)
+        let searchQuery = APIController.searchQuery(by: term)
         // TODO:
 //        type 	No 	movie, series, episode 	<empty> 	Type of result to return.
 //        y 	No 		<empty> 	Year of release.

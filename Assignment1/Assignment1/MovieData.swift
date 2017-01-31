@@ -41,11 +41,11 @@ class MovieData {
     private init() {
     }
     
-    func parseData(movieTitle: String) {
+    func searchForMovies(movieTitle: String) {
         // TODO: get rid of temporary data
         self.episodes = []
-        guard let url = MovieData.apiController.createURLWithComponents(movieTitle: movieTitle) else {
-            print("invalid URL")
+        guard let url = MovieData.apiController.createURLWithComponents(term: SearchTerm.byTitle(movieTitle)) else {
+            print("ERROR: invalid URL for movieTitle \(movieTitle)")
             return
         }
         Alamofire.request(url).responseString { response in
@@ -70,6 +70,22 @@ class MovieData {
                 } else {
                     print("Unable to parse JSON")
                 }
+            }
+        }
+    }
+    
+    func obtainMovieDetails(imdbID: String) {
+        guard let url = MovieData.apiController.createURLWithComponents(term: .byImdbID(imdbID)) else {
+            print("ERROR: invalid URL for imdbID \(imdbID)")
+            return
+        }
+        Alamofire.request(url).responseString { response in
+            if let JSON = response.result.value,
+            let jsonObj = JSON.parseJSONString,
+            let movieData = jsonObj as? NSDictionary,
+            let movieObj = MovieDetails(dictionary: movieData) {
+                let movieDetails = ["details": movieObj]
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieDetails"), object: self , userInfo: movieDetails)
             }
         }
     }

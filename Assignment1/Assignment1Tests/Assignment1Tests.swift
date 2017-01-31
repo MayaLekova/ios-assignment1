@@ -21,14 +21,26 @@ class Assignment1Tests: XCTestCase {
         super.tearDown()
     }
     
-    func testParseDataSucceeds() {
-        MovieData.sharedInstance.parseData(movieTitle: "Batman")
+    func testMovieSearchSucceeds() {
+        MovieData.sharedInstance.searchForMovies(movieTitle: "Batman")
+        // TODO: How to test the result?
         XCTAssert(MovieData.sharedInstance.episodes!.count > 0)
     }
 
-    func testParseDataFails() {
-        MovieData.sharedInstance.parseData(movieTitle: "BabaTiTrankina")
+    func testMovieSearchFails() {
+        MovieData.sharedInstance.searchForMovies(movieTitle: "NonexistingMovie")
         XCTAssert(MovieData.sharedInstance.episodes!.count == 0)
+    }
+    
+    func testMovieDetails() {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "gotMovieDetails"), object: nil, queue: nil, using: {
+            notification in
+                let movieDetailsObj = notification.userInfo as? Dictionary<String,MovieDetails>
+                let movieDetails = movieDetailsObj?["details"] ?? nil
+                XCTAssert((movieDetails != nil))
+                XCTAssert(movieDetails!.title == "Futurama")
+        })
+        MovieData.sharedInstance.obtainMovieDetails(imdbID: "tt0149460")
     }
 
     func testPerformanceExample() {

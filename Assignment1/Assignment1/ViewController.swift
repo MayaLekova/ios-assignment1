@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         // Register to receive notification data
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.notifyObservers), name:  NSNotification.Name(rawValue: "gotMovieData"), object: nil)
         // TODO: get movieTitle from search bar
-        MovieData.sharedInstance.parseData(movieTitle: "Batman")
+        MovieData.sharedInstance.searchForMovies(movieTitle: "Futurama")
 
     }
 
