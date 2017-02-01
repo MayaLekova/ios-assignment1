@@ -63,6 +63,13 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func performSearch() {
+        if let searchTerm = self.currentSearchTerm {
+            self.episodes = []
+            MovieData.sharedInstance.searchForMovies(movieTitle: searchTerm)
+        }
+    }
 
     /** This listens out for the data model to send data
      
@@ -154,18 +161,24 @@ extension ViewController: UISearchResultsUpdating {
 extension ViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.currentSearchTerm = searchBar.text!
-        if let searchTerm = self.currentSearchTerm {
-            self.episodes = []
-            MovieData.sharedInstance.searchForMovies(movieTitle: searchTerm)
-        }
+        self.performSearch()
     }
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        // TODO
         self.currentPage = 1
         return true
     }
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         // TODO
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.currentSearchTerm = searchBar.text!
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reload), object: nil)
+        // to limit network activity, reload 3 seconds after last key press.
+        // as described in http://stackoverflow.com/a/34544749
+        self.perform(#selector(self.reload), with: nil, afterDelay: 3)
+    }
+    func reload() {
+        self.performSearch()
     }
 }
 
