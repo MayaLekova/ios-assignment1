@@ -53,22 +53,14 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.edgesForExtendedLayout = []
-//        self.automaticallyAdjustsScrollViewInsets = false
-//        searchController.searchBar.isHidden = false
-        
-//        super.viewWillAppear(animated)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-//        searchController.searchBar.isHidden = true
-        
-        self.searchController.isActive = false
-        super.viewWillDisappear(animated)
+        super.viewWillAppear(animated)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         if segue.identifier == "detailView" {
+            self.searchController.isActive = false
+
             let detailView = segue.destination as! DetailViewController
             detailView.movieDetails = self.currentEpisode
         }
