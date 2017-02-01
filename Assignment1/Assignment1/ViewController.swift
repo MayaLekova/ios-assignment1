@@ -13,13 +13,17 @@ class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     var episodes: Array<Search>? {
-        didSet{
+        didSet {
             self.tableView.reloadData()
         }
     }
     
+    var totalPages = 0
     var currentPage = 0
+    static let resultsPerPage = 10
+    
     var currentEpisode: MovieDetails?
+    var currentSearchTerm: String?
     
     let searchController = UISearchController(searchResultsController: nil)
 
@@ -65,8 +69,20 @@ class ViewController: UIViewController {
      - parameter notification : NSNotification The data passed as key value dictionary to our listener method
      */
     func updateMovieData(notification : NSNotification) {
-        let episodeInfo = notification.userInfo as? Dictionary<String,Array<Search>?>
-        episodes = episodeInfo?["episode"] ?? Array<Search>()
+        guard let episodeInfo = notification.userInfo,
+            let episodes   = episodeInfo["episodes"]   as? Array<Search>,
+            let totalResults = episodeInfo["totalResults"] as? Int else {
+                print("ERROR: updateMovieData unable to parse userInfo from notification")
+                return
+        }
+        self.episodes?.append(contentsOf: episodes)
+        
+//      To better understand this formula
+//        results	-> pages
+//        31 		-> 4
+//        30 		-> 3
+//        29 		-> 3
+        self.totalPages = (totalResults - 1) / ViewController.resultsPerPage + 1
     }
 
     func updateMovieDetails(notification : NSNotification) {
@@ -111,12 +127,16 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    willDisplay cell: UITableViewCell,
                    forRowAt indexPath: IndexPath) {
+        
+        guard let searchTerm = self.currentSearchTerm else {
+            return
+        }
+        
         let lastElement = (episodes?.count ?? 0) - 1
-        print(indexPath.row)
-        if indexPath.row == lastElement {
-            // TODO: check if there are more pages to load
+        if indexPath.row == lastElement && self.currentPage < self.totalPages {
             self.currentPage += 1
-            MovieData.sharedInstance.searchForMovies(movieTitle: searchController.searchBar.text!, page: self.currentPage)
+            
+            MovieData.sharedInstance.searchForMovies(movieTitle: searchTerm, page: self.currentPage)
         }
     }
 }
@@ -133,7 +153,11 @@ extension ViewController: UISearchResultsUpdating {
 
 extension ViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        MovieData.sharedInstance.searchForMovies(movieTitle: searchBar.text!)
+        self.currentSearchTerm = searchBar.text!
+        if let searchTerm = self.currentSearchTerm {
+            self.episodes = []
+            MovieData.sharedInstance.searchForMovies(movieTitle: searchTerm)
+        }
     }
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         // TODO

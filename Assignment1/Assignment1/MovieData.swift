@@ -44,7 +44,7 @@ class MovieData {
     func searchForMovies(movieTitle: String, page: Int = 1) {
         // TODO: get rid of temporary data
         self.episodes = []
-        guard let url = MovieData.apiController.createURLWithComponents(term: SearchTerm.byTitle(movieTitle)) else {
+        guard let url = MovieData.apiController.createURLWithComponents(term: SearchTerm.byTitle(movieTitle), page: page) else {
             print("ERROR: invalid URL for movieTitle \(movieTitle)")
             return
         }
@@ -55,7 +55,9 @@ class MovieData {
             let movieData = jsonObj as? NSDictionary,
             let movieObj = Json4Swift_Base(dictionary: movieData){
                 self.episodes = movieObj.search
-                let episodesLoaded = ["episode" : self.episodes]
+                let episodesLoaded: [String : Any] = [
+                    "episodes" : self.episodes as Any,
+                    "totalResults" : movieObj.totalResults as Any]
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieData"), object: self , userInfo: episodesLoaded)
             }
         }
