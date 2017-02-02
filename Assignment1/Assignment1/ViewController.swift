@@ -111,20 +111,24 @@ class ViewController: UIViewController {
         self.hideLoadingNotification()
 
         guard let episodeInfo = notification.userInfo,
-            let episodes   = episodeInfo["episodes"]   as? Array<Search>,
-            let totalResults = episodeInfo["totalResults"] as? Int else {
-                // TODO: handel empty query gracefully
-                print("ERROR: updateMovieData unable to parse userInfo from notification")
-                return
+                let totalResults = episodeInfo["totalResults"] as? Int else {
+            print("ERROR: updateMovieData unable to parse userInfo from notification")
+            return
+        }
+        
+        //      To better understand this formula
+        //        results	-> pages
+        //        31 		-> 4
+        //        30 		-> 3
+        //        29 		-> 3
+        self.totalPages = (totalResults - 1) / ViewController.resultsPerPage + 1
+        
+        guard let episodes = episodeInfo["episodes"] as? Array<Search> else {
+            self.episodes = []
+            // TODO: display "No movies found" warning
+            return
         }
         self.episodes?.append(contentsOf: episodes)
-        
-//      To better understand this formula
-//        results	-> pages
-//        31 		-> 4
-//        30 		-> 3
-//        29 		-> 3
-        self.totalPages = (totalResults - 1) / ViewController.resultsPerPage + 1
     }
 
     func updateMovieDetails(notification : NSNotification) {
@@ -172,15 +176,13 @@ extension ViewController: UITableViewDelegate {
                    willDisplay cell: UITableViewCell,
                    forRowAt indexPath: IndexPath) {
         
-        guard let searchTerm = self.currentSearchTerm else {
+        guard self.currentSearchTerm != nil else {
             return
         }
         
         let lastElement = (episodes?.count ?? 0) - 1
         if indexPath.row == lastElement && self.currentPage < self.totalPages {
             self.currentPage += 1
-            
-//            MovieData.sharedInstance.searchForMovies(movieTitle: searchTerm, page: self.currentPage, type: self.currentScope)
             self.performSearch()
         }
     }
