@@ -38,8 +38,16 @@ class APIController {
             return nil
         }
     }
-   
-    func createURLWithComponents(term: SearchTerm, page: Int = 1) -> URL? {
+    private static func resultType(type: MovieType) -> URLQueryItem? {
+        switch type {
+        case .MTAll:
+            return nil
+        default:
+            return URLQueryItem(name: "type", value: type.queryItemValue)
+        }
+    }
+    
+    func createURLWithComponents(term: SearchTerm, page: Int = 1, type: MovieType = .MTAll) -> URL? {
         let urlComponents = NSURLComponents()
         urlComponents.scheme = "https";
         urlComponents.host = "www.omdbapi.com";
@@ -49,11 +57,11 @@ class APIController {
         let searchQuery = APIController.searchQuery(by: term)
         let plotLength = APIController.plotLength(by: term)
         let pageNumber = APIController.pageNumber(by: term, page: page)
-        // TODO:
-//        type 	No 	movie, series, episode 	<empty> 	Type of result to return.
+        let resultType = APIController.resultType(type: type)
+
+// Additional parameters if needed:
 //        y 	No 		<empty> 	Year of release.
 //        r 	No 	json, xml 	json 	The data type to return.
-//        page 	No 	1-100 	1 	Page number to return.
 //        callback 	No 		<empty> 	JSONP callback name.
 //        v 	No 		1 	API version (reserved for future use).
         
@@ -63,6 +71,9 @@ class APIController {
         }
         if pageNumber != nil {
             urlComponents.queryItems?.append(pageNumber!)
+        }
+        if resultType != nil {
+            urlComponents.queryItems?.append(resultType!)
         }
         
         return urlComponents.url

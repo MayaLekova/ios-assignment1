@@ -9,3 +9,8 @@
 "mainScreen.searchBar.placeholder" = "Търси";
 "mainScreen.searchBar.cancel" = "Отказ";
 "navigation.back" = "Назад";
+
+"MTMovie" = "Пълнометр.";
+"MTSeries" = "Поредица";
+"MTEpisode" = "Сериал";
+"MTAll" = "Всички";

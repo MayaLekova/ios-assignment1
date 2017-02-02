@@ -8,4 +8,10 @@
 
 "mainScreen.searchBar.placeholder" = "Search";
 "mainScreen.searchBar.cancel" = "Cancel";
+
 "navigation.back" = "Back";
+
+"MTMovie" = "Movie";
+"MTSeries" = "Series";
+"MTEpisode" = "Episode";
+"MTAll" = "All";

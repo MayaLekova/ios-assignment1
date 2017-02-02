@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     
     var currentEpisode: MovieDetails?
     var currentSearchTerm: String?
+    var currentScope: MovieType = .MTAll
     
     let searchController = UISearchController(searchResultsController: nil)
     var loadingNotification: MBProgressHUD?
@@ -50,8 +51,12 @@ class ViewController: UIViewController {
         // Attach the newly created searchBar to the table's header
         self.tableView.tableHeaderView = searchController.searchBar
         
-        // TODO: Localize titles
-        searchController.searchBar.scopeButtonTitles = ["Movie", "Episode", "Series", "All"]
+        searchController.searchBar.scopeButtonTitles = [
+            MovieType.MTAll.localizedString,
+            MovieType.MTMovie.localizedString,
+            MovieType.MTEpisode.localizedString,
+            MovieType.MTSeries.localizedString
+        ]
         searchController.searchBar.delegate = self
         
         // Register to receive notification data
@@ -94,7 +99,7 @@ class ViewController: UIViewController {
             self.showLoadingNotification()
             
             self.episodes = []
-            MovieData.sharedInstance.searchForMovies(movieTitle: searchTerm)
+            MovieData.sharedInstance.searchForMovies(movieTitle: searchTerm, page: self.currentPage, type: self.currentScope)
         }
     }
 
@@ -103,14 +108,15 @@ class ViewController: UIViewController {
      - parameter notification : NSNotification The data passed as key value dictionary to our listener method
      */
     func updateMovieData(notification : NSNotification) {
+        self.hideLoadingNotification()
+
         guard let episodeInfo = notification.userInfo,
             let episodes   = episodeInfo["episodes"]   as? Array<Search>,
             let totalResults = episodeInfo["totalResults"] as? Int else {
+                // TODO: handel empty query gracefully
                 print("ERROR: updateMovieData unable to parse userInfo from notification")
                 return
         }
-        
-        self.hideLoadingNotification()
         self.episodes?.append(contentsOf: episodes)
         
 //      To better understand this formula
@@ -174,7 +180,8 @@ extension ViewController: UITableViewDelegate {
         if indexPath.row == lastElement && self.currentPage < self.totalPages {
             self.currentPage += 1
             
-            MovieData.sharedInstance.searchForMovies(movieTitle: searchTerm, page: self.currentPage)
+//            MovieData.sharedInstance.searchForMovies(movieTitle: searchTerm, page: self.currentPage, type: self.currentScope)
+            self.performSearch()
         }
     }
 }
@@ -198,7 +205,16 @@ extension ViewController: UISearchBarDelegate {
         return true
     }
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        // TODO
+        let scopeString = searchBar.scopeButtonTitles![selectedScope]
+        guard let currentScope = MovieType(localizedString: scopeString) else {
+            print("ERROR: Unknown string value for movie type \(scopeString)")
+            return
+        }
+        
+        if currentScope != self.currentScope {
+            self.currentScope = currentScope
+            self.performSearch()
+        }
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.currentSearchTerm = searchBar.text!

@@ -41,10 +41,10 @@ class MovieData {
     private init() {
     }
     
-    func searchForMovies(movieTitle: String, page: Int = 1) {
+    func searchForMovies(movieTitle: String, page: Int = 1, type: MovieType = .MTAll) {
         // TODO: get rid of temporary data
         self.episodes = []
-        guard let url = MovieData.apiController.createURLWithComponents(term: SearchTerm.byTitle(movieTitle), page: page) else {
+        guard let url = MovieData.apiController.createURLWithComponents(term: SearchTerm.byTitle(movieTitle), page: page, type: type) else {
             print("ERROR: invalid URL for movieTitle \(movieTitle)")
             return
         }
