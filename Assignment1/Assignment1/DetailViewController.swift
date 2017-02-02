@@ -25,6 +25,11 @@ class DetailViewController: UIViewController {
         self.moviePoster.kf.setImage(with: url)
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        movieTitle.setContentOffset(CGPoint.zero, animated: false)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
