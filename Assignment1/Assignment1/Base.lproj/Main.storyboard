@@ -39,7 +39,9 @@
                             <constraint firstItem="f3r-el-Vmj" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="RQs-9e-hGA"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="XCL-MN-Q6G"/>
+                    <navigationItem key="navigationItem" id="XCL-MN-Q6G">
+                        <barButtonItem key="backBarButtonItem" title="navigation.back" id="0Lh-Lm-chJ"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="ownView" destination="8bC-Xf-vdC" id="pBp-Tf-4du"/>
                         <outlet property="tableView" destination="f3r-el-Vmj" id="kgS-VO-Xa0"/>

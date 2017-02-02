@@ -41,6 +41,11 @@ class ViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.definesPresentationContext = true
+        searchController.searchBar.placeholder = NSLocalizedString("mainScreen.searchBar.placeholder", comment: "")
+        
+        // Set localized "Cancel" button title
+        // as described in http://stackoverflow.com/a/40257292
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = NSLocalizedString("mainScreen.searchBar.cancel", comment: "")
         
         // Attach the newly created searchBar to the table's header
         self.tableView.tableHeaderView = searchController.searchBar

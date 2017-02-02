@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  Assignment1
+
+  Created by Maya Lekova on 2/2/17.
+  Copyright © 2017 Maya Lekova. All rights reserved.
+*/
+
+"mainScreen.searchBar.placeholder" = "Търси";
+"mainScreen.searchBar.cancel" = "Отказ";
+"navigation.back" = "Назад";
