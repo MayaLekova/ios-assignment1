@@ -296,7 +296,7 @@
 				TargetAttributes = {
 					6CC55ED51E326D35000E08CF = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = CWK29L7ZPT;
+						DevelopmentTeam = URF66WA225;
 						ProvisioningStyle = Automatic;
 					};
 					6CC55EE91E326D36000E08CF = {
@@ -665,7 +665,7 @@
 			baseConfigurationReference = 46C3EDA5D1E0AE4E63F10B9C /* Pods-Assignment1.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CWK29L7ZPT;
+				DEVELOPMENT_TEAM = URF66WA225;
 				INFOPLIST_FILE = Assignment1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Acme.Assignment1;
@@ -680,7 +680,7 @@
 			baseConfigurationReference = A326124EF3238BB7D6B8C232 /* Pods-Assignment1.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CWK29L7ZPT;
+				DEVELOPMENT_TEAM = URF66WA225;
 				INFOPLIST_FILE = Assignment1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Acme.Assignment1;

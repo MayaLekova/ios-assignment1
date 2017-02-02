@@ -41,6 +41,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="XCL-MN-Q6G"/>
                     <connections>
+                        <outlet property="ownView" destination="8bC-Xf-vdC" id="pBp-Tf-4du"/>
                         <outlet property="tableView" destination="f3r-el-Vmj" id="kgS-VO-Xa0"/>
                         <segue destination="aei-ae-ElU" kind="show" identifier="detailView" id="wyh-Yb-DEK"/>
                     </connections>

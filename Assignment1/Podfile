@@ -6,6 +6,7 @@ target 'Assignment1' do
   use_frameworks!
   pod 'Alamofire', '~> 4.3'
   pod 'Kingfisher', '~> 3.3'
+  pod 'MBProgressHUD', '~> 1.0.0'
   
   # Pods for Assignment1
 

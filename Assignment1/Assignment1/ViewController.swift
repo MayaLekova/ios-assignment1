@@ -8,9 +8,11 @@
 
 import UIKit
 import Kingfisher
+import MBProgressHUD
 
 class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var ownView: UIView!
     
     var episodes: Array<Search>? {
         didSet {
@@ -26,6 +28,7 @@ class ViewController: UIViewController {
     var currentSearchTerm: String?
     
     let searchController = UISearchController(searchResultsController: nil)
+    var loadingNotification: MBProgressHUD?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,8 +74,20 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func showLoadingNotification() {
+        self.loadingNotification = MBProgressHUD.showAdded(to: self.ownView, animated: true)
+        loadingNotification?.mode = MBProgressHUDMode.indeterminate
+        loadingNotification?.label.text = "Loading"
+    }
+    
+    func hideLoadingNotification() {
+        self.loadingNotification?.hide(animated: true)
+    }
+    
     func performSearch() {
         if let searchTerm = self.currentSearchTerm {
+            self.showLoadingNotification()
+            
             self.episodes = []
             MovieData.sharedInstance.searchForMovies(movieTitle: searchTerm)
         }
@@ -89,6 +104,8 @@ class ViewController: UIViewController {
                 print("ERROR: updateMovieData unable to parse userInfo from notification")
                 return
         }
+        
+        self.hideLoadingNotification()
         self.episodes?.append(contentsOf: episodes)
         
 //      To better understand this formula
@@ -100,8 +117,9 @@ class ViewController: UIViewController {
     }
 
     func updateMovieDetails(notification : NSNotification) {
-        let movieDetailsObj = notification.userInfo as? Dictionary<String,MovieDetails>
+        let movieDetailsObj = notification.userInfo as? Dictionary<String, MovieDetails>
         if let movieDetails = movieDetailsObj?["details"] {
+            self.hideLoadingNotification()
             self.currentEpisode = movieDetails
             self.performSegue(withIdentifier: "detailView", sender: nil)
         }
@@ -133,6 +151,7 @@ extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentEpisode = episodes?[indexPath.row]
         if let imdbID = currentEpisode?.imdbID {
+            self.showLoadingNotification()
             MovieData.sharedInstance.obtainMovieDetails(imdbID: imdbID)
         } else {
             print("ERROR: episode without imdbID")
