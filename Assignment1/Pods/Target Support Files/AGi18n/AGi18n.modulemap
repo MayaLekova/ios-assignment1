@@ -1,0 +1,6 @@
+framework module AGi18n {
+  umbrella header "AGi18n-umbrella.h"
+
+  export *
+  module * { export * }
+}

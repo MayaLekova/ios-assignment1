@@ -28,9 +28,35 @@ class Assignment1UITests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    // Borrowed from http://masilotti.com/xctest-helpers/
+    private func waitForElementToAppear(element: XCUIElement, file: String = #file, line: UInt = #line) {
+        let existsPredicate = NSPredicate(format: "exists == true")
+        expectation(for: existsPredicate, evaluatedWith: element, handler: nil)
+        waitForExpectations(timeout: 5) { (error) -> Void in
+            if (error != nil) {
+                let message = "Failed to find \(element) after 5 seconds."
+                self.recordFailure(withDescription: message, inFile: file, atLine: line, expected: true)
+            }
+        }
     }
-    
+
+    func testNavigation() {
+        let app = XCUIApplication()
+        app.tables["Empty list"].buttons["Movie"].tap()
+        app.searchFields["Search"].typeText("futurama\r")
+        
+        let app2 = app
+        app2.buttons["Episode"].tap()
+        app2.buttons["Series"].tap()
+        app2.buttons["Movie"].tap()
+        
+        let firstMovie = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element(boundBy: 1)
+        waitForElementToAppear(element: firstMovie)
+        firstMovie.tap()
+        
+        let backButton = app.navigationBars["Movie Details"].children(matching: .button).matching(identifier: "Back").element(boundBy: 0)
+        waitForElementToAppear(element: backButton)
+        
+        backButton.tap()
+    }
 }
