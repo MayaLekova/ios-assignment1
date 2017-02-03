@@ -3,19 +3,27 @@ PODS:
   - Alamofire (4.3.0)
   - Kingfisher (3.3.2)
   - MBProgressHUD (1.0.0)
+  - Realm (2.4.2):
+    - Realm/Headers (= 2.4.2)
+  - Realm/Headers (2.4.2)
+  - RealmSwift (2.4.2):
+    - Realm (= 2.4.2)
 
 DEPENDENCIES:
   - AGi18n (~> 0.0)
   - Alamofire (~> 4.3)
   - Kingfisher (~> 3.3)
   - MBProgressHUD (~> 1.0.0)
+  - RealmSwift
 
 SPEC CHECKSUMS:
   AGi18n: 1ad8c0c1048b20541ce94ca161c0e5937f4677cc
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   Kingfisher: 8e60094454aeb4746eb588eb57f794d891c6ea88
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  Realm: d27b758e12d62a3371879a065d4c40aa212c5a54
+  RealmSwift: 9556c0fe0f0cfecacfb755ae9e68ff379fc6bead
 
-PODFILE CHECKSUM: 6f6d01f4b3daf7220b8ed175acc1202e12754277
+PODFILE CHECKSUM: d01f638ca15233052f4f0367ced3f8333c9e2ed3
 
 COCOAPODS: 1.1.1

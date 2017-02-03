@@ -8,6 +8,7 @@ target 'Assignment1' do
   pod 'Kingfisher', '~> 3.3'
   pod 'MBProgressHUD', '~> 1.0.0'
   pod 'AGi18n', '~> 0.0'
+  pod 'RealmSwift'
   
   # Pods for Assignment1
 
@@ -21,4 +22,12 @@ target 'Assignment1' do
     # Pods for testing
   end
 
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['SWIFT_VERSION'] = '3.0'
+        end
+    end
 end
