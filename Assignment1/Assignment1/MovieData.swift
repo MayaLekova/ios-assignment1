@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 // Inspired by http://stackoverflow.com/a/27269242
 extension String {
@@ -31,36 +32,54 @@ extension String {
 }
 
 class MovieData {
-    var episodes: Array<Episodes>?
-
-    // Escaped data from http://www.omdbapi.com/?t=Game%20of%20Thrones&Season=1
-    let json = "{\"Title\":\"Game of Thrones\",\"Season\":\"1\",\"totalSeasons\":\"8\",\"Episodes\":[{\"Title\":\"Winter Is Coming\",\"Released\":\"2011-04-17\",\"Episode\":\"1\",\"imdbRating\":\"9.0\",\"imdbID\":\"tt1480055\"},{\"Title\":\"The Kingsroad\",\"Released\":\"2011-04-24\",\"Episode\":\"2\",\"imdbRating\":\"8.8\",\"imdbID\":\"tt1668746\"},{\"Title\":\"Lord Snow\",\"Released\":\"2011-05-01\",\"Episode\":\"3\",\"imdbRating\":\"8.6\",\"imdbID\":\"tt1829962\"},{\"Title\":\"Cripples, Bastards, and Broken Things\",\"Released\":\"2011-05-08\",\"Episode\":\"4\",\"imdbRating\":\"8.7\",\"imdbID\":\"tt1829963\"},{\"Title\":\"The Wolf and the Lion\",\"Released\":\"2011-05-15\",\"Episode\":\"5\",\"imdbRating\":\"9.1\",\"imdbID\":\"tt1829964\"},{\"Title\":\"A Golden Crown\",\"Released\":\"2011-05-22\",\"Episode\":\"6\",\"imdbRating\":\"9.1\",\"imdbID\":\"tt1837862\"},{\"Title\":\"You Win or You Die\",\"Released\":\"2011-05-29\",\"Episode\":\"7\",\"imdbRating\":\"9.2\",\"imdbID\":\"tt1837863\"},{\"Title\":\"The Pointy End\",\"Released\":\"2011-06-05\",\"Episode\":\"8\",\"imdbRating\":\"9.0\",\"imdbID\":\"tt1837864\"},{\"Title\":\"Baelor\",\"Released\":\"2011-06-12\",\"Episode\":\"9\",\"imdbRating\":\"9.6\",\"imdbID\":\"tt1851398\"},{\"Title\":\"Fire and Blood\",\"Released\":\"2011-06-19\",\"Episode\":\"10\",\"imdbRating\":\"9.4\",\"imdbID\":\"tt1851397\"}],\"Response\":\"True\"}"
+    static fileprivate let apiController = APIController()
 
     static let sharedInstance = MovieData()
     private init() {
     }
     
-    func parseData() {
-        if let jsonObj = json.parseJSONString {
-            if let movieData = jsonObj as? NSDictionary {
-                if let movieObj = Json4Swift_Base(dictionary: movieData)
-                {
-                    episodes = movieObj.episodes
-                    //post our data
-                    let episodesLoaded = ["episode" : episodes]
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieData"), object: self , userInfo: episodesLoaded)
-                    // maybe retrieve data with pictures from http://www.omdbapi.com/?s=Batman
-                    // and construct custom cells with pictures
-                } else {
-                    print("Unable to construct movie object")
-                }
-            } else {
-                print("Unable to interpret parsed object as dictionary")
-                print(jsonObj)
-            }
-        } else {
-            print("Unable to parse JSON")
+    func searchForMovies(movieTitle: String, page: Int = 1, type: MovieType = .MTAll) {
+        guard let url = MovieData.apiController.createURLWithComponents(term: SearchTerm.byTitle(movieTitle), page: page, type: type) else {
+            print("ERROR: invalid URL for movieTitle \(movieTitle)")
+            return
         }
-
+        
+        Alamofire.request(url).responseString { response in
+            if let JSON = response.result.value,
+            let jsonObj = JSON.parseJSONString,
+            let movieData = jsonObj as? NSDictionary,
+            let movieObj = Json4Swift_Base(dictionary: movieData){
+                let episodesLoaded: [String : Any] = [
+                    "episodes" : movieObj.search as Any,
+                    "totalResults" : movieObj.totalResults as Any]
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieData"), object: self , userInfo: episodesLoaded)
+            }
+        }
+    }
+    
+    func obtainMovieDetails(imdbID: String) {
+        guard let url = MovieData.apiController.createURLWithComponents(term: .byImdbID(imdbID)) else {
+            print("ERROR: invalid URL for imdbID \(imdbID)")
+            return
+        }
+        Alamofire.request(url).responseString { response in
+            guard response.result.isSuccess else {
+                print("ERROR: unable to obtain movie details for imdbID: \(imdbID)")
+                return
+            }
+            if let JSON = response.result.value,
+            let jsonObj = JSON.parseJSONString,
+            let movieData = jsonObj as? NSDictionary,
+            let movieObj = MovieDetails(dictionary: movieData) {
+                if movieObj.response != nil && movieObj.response! == false {
+                    let errorObj = APIResponse(dictionary: movieData)
+                    print("\(errorObj!) while trying to obtain movie details for imdbID: \(imdbID)")
+                    return
+                }
+                
+                let movieDetails = ["details": movieObj]
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieDetails"), object: self , userInfo: movieDetails)
+            }
+        }
     }
 }

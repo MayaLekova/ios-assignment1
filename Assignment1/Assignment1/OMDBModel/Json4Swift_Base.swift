@@ -13,10 +13,8 @@ import Foundation
 /* For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 public class Json4Swift_Base {
-	public var title : String?
-	public var season : Int?
-	public var totalSeasons : Int?
-	public var episodes : Array<Episodes>?
+	public var search : Array<Search>?
+	public var totalResults : Int?
 	public var response : Bool?
 
 /**
@@ -51,11 +49,9 @@ public class Json4Swift_Base {
 */
 	required public init?(dictionary: NSDictionary) {
 
-		title = dictionary["Title"] as? String
-		season = dictionary["Season"] as? Int
-		totalSeasons = dictionary["totalSeasons"] as? Int
-		if (dictionary["Episodes"] != nil) { episodes = Episodes.modelsFromDictionaryArray(array: dictionary["Episodes"] as! NSArray) }
-		response = dictionary["Response"] as? Bool
+		if (dictionary["Search"] != nil) { search = Search.modelsFromDictionaryArray(array: dictionary["Search"] as! NSArray) }
+		totalResults = Int(dictionary["totalResults"] as? String ?? "0")
+		response = Bool(dictionary["Response"] as? String ?? "false")
 	}
 
 		
@@ -68,9 +64,7 @@ public class Json4Swift_Base {
 
 		let dictionary = NSMutableDictionary()
 
-		dictionary.setValue(self.title, forKey: "Title")
-		dictionary.setValue(self.season, forKey: "Season")
-		dictionary.setValue(self.totalSeasons, forKey: "totalSeasons")
+		dictionary.setValue(self.totalResults, forKey: "totalResults")
 		dictionary.setValue(self.response, forKey: "Response")
 
 		return dictionary
