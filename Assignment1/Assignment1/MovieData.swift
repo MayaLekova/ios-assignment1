@@ -32,9 +32,6 @@ extension String {
 }
 
 class MovieData {
-    var episodes: Array<Search>?
-    var json = "Invalid"
-    
     static fileprivate let apiController = APIController()
 
     static let sharedInstance = MovieData()
@@ -42,8 +39,6 @@ class MovieData {
     }
     
     func searchForMovies(movieTitle: String, page: Int = 1, type: MovieType = .MTAll) {
-        // TODO: get rid of temporary data
-        self.episodes = []
         guard let url = MovieData.apiController.createURLWithComponents(term: SearchTerm.byTitle(movieTitle), page: page, type: type) else {
             print("ERROR: invalid URL for movieTitle \(movieTitle)")
             return
@@ -54,9 +49,8 @@ class MovieData {
             let jsonObj = JSON.parseJSONString,
             let movieData = jsonObj as? NSDictionary,
             let movieObj = Json4Swift_Base(dictionary: movieData){
-                self.episodes = movieObj.search
                 let episodesLoaded: [String : Any] = [
-                    "episodes" : self.episodes as Any,
+                    "episodes" : movieObj.search as Any,
                     "totalResults" : movieObj.totalResults as Any]
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieData"), object: self , userInfo: episodesLoaded)
             }
