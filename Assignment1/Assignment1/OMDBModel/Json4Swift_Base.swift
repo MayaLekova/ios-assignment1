@@ -50,8 +50,8 @@ public class Json4Swift_Base {
 	required public init?(dictionary: NSDictionary) {
 
 		if (dictionary["Search"] != nil) { search = Search.modelsFromDictionaryArray(array: dictionary["Search"] as! NSArray) }
-		totalResults = dictionary["totalResults"] as? Int
-		response = dictionary["Response"] as? Bool
+		totalResults = Int(dictionary["totalResults"] as? String ?? "0")
+		response = Bool(dictionary["Response"] as? String ?? "false")
 	}
 
 		

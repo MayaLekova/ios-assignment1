@@ -1,15 +1,21 @@
 PODS:
+  - AGi18n (0.0.2)
   - Alamofire (4.3.0)
   - Kingfisher (3.3.2)
+  - MBProgressHUD (1.0.0)
 
 DEPENDENCIES:
+  - AGi18n (~> 0.0)
   - Alamofire (~> 4.3)
   - Kingfisher (~> 3.3)
+  - MBProgressHUD (~> 1.0.0)
 
 SPEC CHECKSUMS:
+  AGi18n: 1ad8c0c1048b20541ce94ca161c0e5937f4677cc
   Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
   Kingfisher: 8e60094454aeb4746eb588eb57f794d891c6ea88
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
 
-PODFILE CHECKSUM: 8feb243394381e635ebb0b09a2fd248b0e729002
+PODFILE CHECKSUM: 6f6d01f4b3daf7220b8ed175acc1202e12754277
 
 COCOAPODS: 1.1.1

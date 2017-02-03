@@ -32,42 +32,53 @@ extension String {
 }
 
 class MovieData {
-    var episodes: Array<Search>?
-
-    var json = "Invalid"
+    static fileprivate let apiController = APIController()
 
     static let sharedInstance = MovieData()
     private init() {
     }
     
-    func parseData() {
-        Alamofire.request("https://www.omdbapi.com/?s=Game%20of%20Thrones&page=1&type=series").responseString { response in
-            print(response.request)  // original URL request
-            print(response.response) // HTTP URL response
-            print(response.data)     // server data
-            print(response.result)   // result of response serialization
-            
-            if let JSON = response.result.value {
-                self.json = JSON
-                
-                if let jsonObj = self.json.parseJSONString {
-                    if let movieData = jsonObj as? NSDictionary {
-                        if let movieObj = Json4Swift_Base(dictionary: movieData)
-                        {
-                            self.episodes = movieObj.search
-                            //post our data
-                            let episodesLoaded = ["episode" : self.episodes]
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieData"), object: self , userInfo: episodesLoaded)
-                        } else {
-                            print("Unable to construct movie object")
-                        }
-                    } else {
-                        print("Unable to interpret parsed object as dictionary")
-                        print(jsonObj)
-                    }
-                } else {
-                    print("Unable to parse JSON")
+    func searchForMovies(movieTitle: String, page: Int = 1, type: MovieType = .MTAll) {
+        guard let url = MovieData.apiController.createURLWithComponents(term: SearchTerm.byTitle(movieTitle), page: page, type: type) else {
+            print("ERROR: invalid URL for movieTitle \(movieTitle)")
+            return
+        }
+        
+        Alamofire.request(url).responseString { response in
+            if let JSON = response.result.value,
+            let jsonObj = JSON.parseJSONString,
+            let movieData = jsonObj as? NSDictionary,
+            let movieObj = Json4Swift_Base(dictionary: movieData){
+                let episodesLoaded: [String : Any] = [
+                    "episodes" : movieObj.search as Any,
+                    "totalResults" : movieObj.totalResults as Any]
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieData"), object: self , userInfo: episodesLoaded)
+            }
+        }
+    }
+    
+    func obtainMovieDetails(imdbID: String) {
+        guard let url = MovieData.apiController.createURLWithComponents(term: .byImdbID(imdbID)) else {
+            print("ERROR: invalid URL for imdbID \(imdbID)")
+            return
+        }
+        Alamofire.request(url).responseString { response in
+            guard response.result.isSuccess else {
+                print("ERROR: unable to obtain movie details for imdbID: \(imdbID)")
+                return
+            }
+            if let JSON = response.result.value,
+            let jsonObj = JSON.parseJSONString,
+            let movieData = jsonObj as? NSDictionary,
+            let movieObj = MovieDetails(dictionary: movieData) {
+                if movieObj.response != nil && movieObj.response! == false {
+                    let errorObj = APIResponse(dictionary: movieData)
+                    print("\(errorObj!) while trying to obtain movie details for imdbID: \(imdbID)")
+                    return
                 }
+                
+                let movieDetails = ["details": movieObj]
+                NotificationCenter.default.post(name: Notification.Name(rawValue: "gotMovieDetails"), object: self , userInfo: movieDetails)
             }
         }
     }

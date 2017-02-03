@@ -31,6 +31,8 @@ class MoviePreviewTableViewCell: UITableViewCell {
         let url = URL(string: movieData.poster ?? "")
         // Make sure to have placeholder as described in https://github.com/rs/SDWebImage/issues/9
         self.movieImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "Placeholder"))
+        
+        self.movieDescription.text = movieData.year ?? ""
     }
     
 }
