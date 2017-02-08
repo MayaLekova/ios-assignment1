@@ -48,7 +48,7 @@ class MovieData {
             if let JSON = response.result.value,
             let jsonObj = JSON.parseJSONString,
             let movieData = jsonObj as? NSDictionary,
-            let movieObj = Json4Swift_Base(dictionary: movieData){
+            let movieObj = MovieSearch(dictionary: movieData){
                 let episodesLoaded: [String : Any] = [
                     "episodes" : movieObj.search as Any,
                     "totalResults" : movieObj.totalResults as Any]

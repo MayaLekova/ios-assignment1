@@ -12,7 +12,7 @@ import Foundation
  
 /* For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
-public class Json4Swift_Base {
+public class MovieSearch {
 	public var search : Array<Search>?
 	public var totalResults : Int?
 	public var response : Bool?
@@ -21,18 +21,18 @@ public class Json4Swift_Base {
     Returns an array of models based on given dictionary.
     
     Sample usage:
-    let json4Swift_Base_list = Json4Swift_Base.modelsFromDictionaryArray(someDictionaryArrayFromJSON)
+    let json4Swift_Base_list = MovieSearch.modelsFromDictionaryArray(someDictionaryArrayFromJSON)
 
     - parameter array:  NSArray from JSON dictionary.
 
-    - returns: Array of Json4Swift_Base Instances.
+    - returns: Array of MovieSearch Instances.
 */
-    public class func modelsFromDictionaryArray(array:NSArray) -> [Json4Swift_Base]
+    public class func modelsFromDictionaryArray(array:NSArray) -> [MovieSearch]
     {
-        var models:[Json4Swift_Base] = []
+        var models:[MovieSearch] = []
         for item in array
         {
-            models.append(Json4Swift_Base(dictionary: item as! NSDictionary)!)
+            models.append(MovieSearch(dictionary: item as! NSDictionary)!)
         }
         return models
     }
@@ -41,11 +41,11 @@ public class Json4Swift_Base {
     Constructs the object based on the given dictionary.
     
     Sample usage:
-    let json4Swift_Base = Json4Swift_Base(someDictionaryFromJSON)
+    let json4Swift_Base = MovieSearch(someDictionaryFromJSON)
 
     - parameter dictionary:  NSDictionary from JSON.
 
-    - returns: Json4Swift_Base Instance.
+    - returns: MovieSearch Instance.
 */
 	required public init?(dictionary: NSDictionary) {
 

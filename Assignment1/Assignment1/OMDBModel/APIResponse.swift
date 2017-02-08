@@ -25,18 +25,18 @@ public class APIResponse: CustomStringConvertible {
     Returns an array of models based on given dictionary.
     
     Sample usage:
-    let json4Swift_Base_list = Json4Swift_Base.modelsFromDictionaryArray(someDictionaryArrayFromJSON)
+    let json4Swift_Base_list = APIResponse.modelsFromDictionaryArray(someDictionaryArrayFromJSON)
 
     - parameter array:  NSArray from JSON dictionary.
 
-    - returns: Array of Json4Swift_Base Instances.
+    - returns: Array of APIResponse Instances.
 */
-    public class func modelsFromDictionaryArray(array:NSArray) -> [Json4Swift_Base]
+    public class func modelsFromDictionaryArray(array:NSArray) -> [APIResponse]
     {
-        var models:[Json4Swift_Base] = []
+        var models:[APIResponse] = []
         for item in array
         {
-            models.append(Json4Swift_Base(dictionary: item as! NSDictionary)!)
+            models.append(APIResponse(dictionary: item as! NSDictionary)!)
         }
         return models
     }
@@ -45,11 +45,11 @@ public class APIResponse: CustomStringConvertible {
     Constructs the object based on the given dictionary.
     
     Sample usage:
-    let json4Swift_Base = Json4Swift_Base(someDictionaryFromJSON)
+    let json4Swift_Base = APIResponse(someDictionaryFromJSON)
 
     - parameter dictionary:  NSDictionary from JSON.
 
-    - returns: Json4Swift_Base Instance.
+    - returns: APIResponse Instance.
 */
 	required public init?(dictionary: NSDictionary) {
 
