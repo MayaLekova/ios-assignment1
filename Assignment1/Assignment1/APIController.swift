@@ -50,7 +50,7 @@ class APIController {
     func createURLWithComponents(term: SearchTerm, page: Int = 1, type: MovieType = .MTAll) -> URL? {
         let urlComponents = NSURLComponents()
         urlComponents.scheme = "https";
-        urlComponents.host = "www.omdbapi.com";
+        urlComponents.host = "svr2.omdbapi.com";
         urlComponents.path = "";
         
         // add params
