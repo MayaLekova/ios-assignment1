@@ -13,6 +13,7 @@
 		6C37200F1E40C76200367185 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C37200E1E40C76200367185 /* DetailViewController.swift */; };
 		6C3720111E40D2E600367185 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3720101E40D2E600367185 /* APIResponse.swift */; };
 		6C549BD51E337D23006C5687 /* Episodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C549BD31E337D23006C5687 /* Episodes.swift */; };
+		6C5CB7481E4C843900BA2BAF /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5CB7471E4C843900BA2BAF /* FavouritesViewController.swift */; };
 		6C5F77F71E433B210027C5E6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6C5F77F91E433B210027C5E6 /* Localizable.strings */; };
 		6C5F77FD1E436C980027C5E6 /* MovieType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C5F77FC1E436C980027C5E6 /* MovieType.swift */; };
 		6C61FFE71E4B819200A7B2FD /* MovieSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C61FFE61E4B819200A7B2FD /* MovieSearch.swift */; };
@@ -58,6 +59,7 @@
 		6C37200E1E40C76200367185 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		6C3720101E40D2E600367185 /* APIResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIResponse.swift; path = OMDBModel/APIResponse.swift; sourceTree = "<group>"; };
 		6C549BD31E337D23006C5687 /* Episodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Episodes.swift; path = OMDBModel/Episodes.swift; sourceTree = "<group>"; };
+		6C5CB7471E4C843900BA2BAF /* FavouritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		6C5F77F51E433A5B0027C5E6 /* bg-BG */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "bg-BG"; path = "bg-BG.lproj/Main.strings"; sourceTree = "<group>"; };
 		6C5F77F61E433A5B0027C5E6 /* bg-BG */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "bg-BG"; path = "bg-BG.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		6C5F77F81E433B210027C5E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				6CC55ED91E326D35000E08CF /* AppDelegate.swift */,
 				6CC55EDB1E326D35000E08CF /* ViewController.swift */,
 				6C37200E1E40C76200367185 /* DetailViewController.swift */,
+				6C5CB7471E4C843900BA2BAF /* FavouritesViewController.swift */,
 				6CC55EDD1E326D35000E08CF /* Main.storyboard */,
 				6CC55EE01E326D35000E08CF /* Assets.xcassets */,
 				6CC55EE21E326D35000E08CF /* LaunchScreen.storyboard */,
@@ -518,6 +521,7 @@
 				6C549BD51E337D23006C5687 /* Episodes.swift in Sources */,
 				6CC55EDC1E326D35000E08CF /* ViewController.swift in Sources */,
 				6CA78D6E1E3CB5F7006B9D60 /* MoviePreviewTableViewCell.swift in Sources */,
+				6C5CB7481E4C843900BA2BAF /* FavouritesViewController.swift in Sources */,
 				6C5F77FD1E436C980027C5E6 /* MovieType.swift in Sources */,
 				6C6D63C91E3FA01F000877A3 /* APIController.swift in Sources */,
 				6C3720111E40D2E600367185 /* APIResponse.swift in Sources */,
