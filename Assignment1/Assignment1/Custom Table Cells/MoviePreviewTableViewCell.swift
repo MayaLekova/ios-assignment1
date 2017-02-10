@@ -13,6 +13,8 @@ class MoviePreviewTableViewCell: UITableViewCell {
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieDescription: UITextView!
     @IBOutlet weak var movieTitle: UILabel!
+    
+    var data: Search?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,6 +28,8 @@ class MoviePreviewTableViewCell: UITableViewCell {
     }
     
     func setDataForView(movieData: Search) {
+        self.data = movieData
+        
         self.movieTitle.text = movieData.title ?? "No title"
  
         let url = URL(string: movieData.poster ?? "")
@@ -34,5 +38,8 @@ class MoviePreviewTableViewCell: UITableViewCell {
         
         self.movieDescription.text = movieData.year ?? ""
     }
-    
+
+    @IBAction func favourMovie(_ sender: UIButton) {
+        self.data?.favour()
+    }
 }
