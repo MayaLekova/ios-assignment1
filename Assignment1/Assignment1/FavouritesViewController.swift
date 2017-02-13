@@ -15,22 +15,14 @@ class FavouritesViewController: UIViewController {
 
     var favourites: Results<Search>?
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         let nib = UINib(nibName: "MoviePreviewTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "MoviePreviewTableViewCell")
-        
-        // TODO: add a static method to Favourable
-        do {
-            let realm = try Realm()
-            
-            self.favourites = realm.objects(Search.self)
-        } catch let error as NSError {
-            print("Error while obtaining reference to DB: \(error)")
-        }
-        
-        // Observe Results Notifications
+    }
+    
+    func observeFavouritesChanges() {
         self.notificationToken = self.favourites?.addNotificationBlock { [weak self] (changes: RealmCollectionChange) in
             guard let tableView = self?.tableView else { return }
             switch changes {
@@ -55,6 +47,21 @@ class FavouritesViewController: UIViewController {
                 break
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // TODO: add a static method to Favourable
+        do {
+            let realm = try Realm()
+            
+            self.favourites = realm.objects(Search.self)
+        } catch let error as NSError {
+            print("Error while obtaining reference to DB: \(error)")
+        }
+        
+        observeFavouritesChanges()
     }
 
     override func didReceiveMemoryWarning() {
