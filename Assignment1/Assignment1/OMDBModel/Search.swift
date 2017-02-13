@@ -19,21 +19,26 @@ public class Search: Favourable {
 	dynamic public var imdbID : String?
 	dynamic public var type : String?
 	dynamic public var poster : String?
+    
+    var canFavour: Bool {
+        do {
+            let realm = try Realm()
+            
+            let existing = realm.objects(Search.self).filter("imdbID == %@", self.imdbID ?? "")
+            return (existing.count == 0)
+        } catch let error as NSError {
+            print("Error while obtaining reference to DB: \(error)")
+        }
+        return true
+    }
 
     override public static func primaryKey() -> String? {
         return "imdbID"
     }
     
     override public func favour() {
-        do {
-            let realm = try Realm()
-            
-            let existing = realm.objects(Search.self).filter("imdbID == %@", self.imdbID ?? "")            
-            if existing.count == 0 {
-                super.favour()
-            }
-        } catch let error as NSError {
-            print("Error while obtaining reference to DB: \(error)")
+        if self.canFavour {
+            super.favour()
         }
     }
     

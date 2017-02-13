@@ -28,11 +28,26 @@ class MoviePreviewTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func setEmptyIcon() {
+        let btnImage = UIImage(named: "FavourIcon")
+        self.favourMovie.setImage(btnImage , for: UIControlState.normal)
+    }
+    func setFilledIcon() {
+        let btnImage = UIImage(named: "FavourFilledIcon")
+        self.favourMovie.setImage(btnImage , for: UIControlState.normal)
+    }
+    
     func setDataForView(movieData: Search, disableFavourites: Bool = false) {
         self.data = movieData
         self.disableFavourites = disableFavourites
         if self.disableFavourites {
             self.favourMovie.isHidden = true
+        } else {
+            if self.data?.canFavour ?? true {
+                self.setEmptyIcon()
+            } else {
+                self.setFilledIcon()
+            }
         }
         
         self.movieTitle.text = movieData.title ?? "No title"
@@ -49,5 +64,6 @@ class MoviePreviewTableViewCell: UITableViewCell {
             return
         }
         self.data?.favour()
+        self.setFilledIcon()
     }
 }
