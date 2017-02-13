@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         // SearchResultsUpdater allows class to be informed of text changes
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.definesPresentationContext = true
+        self.definesPresentationContext = true
         searchController.searchBar.placeholder = NSLocalizedString("mainScreen.searchBar.placeholder", comment: "")
         
         // Set localized "Cancel" button title
@@ -73,6 +73,11 @@ class ViewController: UIViewController {
         performSearch()
         
         super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.searchController.isActive = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
