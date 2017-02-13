@@ -66,6 +66,12 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.edgesForExtendedLayout = []
+        
+        // Redo the request in order to work around "Object has been deleted or invalidated." exception
+        // when favouring the same movie after it's been removed from favourites
+        // More info: http://stackoverflow.com/questions/32308842/realm-can-i-save-a-object-after-delete-the-object
+        performSearch()
+        
         super.viewWillAppear(animated)
     }
     
