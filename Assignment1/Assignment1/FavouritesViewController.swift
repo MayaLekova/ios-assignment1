@@ -83,7 +83,7 @@ extension FavouritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MoviePreviewTableViewCell", for: indexPath) as! MoviePreviewTableViewCell
         if let item = favourites?[indexPath.row] {
-            cell.setDataForView(movieData: item)
+            cell.setDataForView(movieData: item, disableFavourites: true)
         }
         
         return cell

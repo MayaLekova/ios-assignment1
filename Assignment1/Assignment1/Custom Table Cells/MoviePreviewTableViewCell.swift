@@ -13,12 +13,13 @@ class MoviePreviewTableViewCell: UITableViewCell {
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieDescription: UITextView!
     @IBOutlet weak var movieTitle: UILabel!
-    
+    @IBOutlet weak var favourMovie: UIButton!
+
     var data: Search?
+    var disableFavourites = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,8 +28,12 @@ class MoviePreviewTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setDataForView(movieData: Search) {
+    func setDataForView(movieData: Search, disableFavourites: Bool = false) {
         self.data = movieData
+        self.disableFavourites = disableFavourites
+        if self.disableFavourites {
+            self.favourMovie.isHidden = true
+        }
         
         self.movieTitle.text = movieData.title ?? "No title"
  
@@ -40,6 +45,9 @@ class MoviePreviewTableViewCell: UITableViewCell {
     }
 
     @IBAction func favourMovie(_ sender: UIButton) {
+        if disableFavourites {
+            return
+        }
         self.data?.favour()
     }
 }
