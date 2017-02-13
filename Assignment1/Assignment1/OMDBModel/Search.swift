@@ -9,6 +9,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 import Foundation
+import RealmSwift
 
 /* For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
@@ -19,6 +20,23 @@ public class Search: Favourable {
 	dynamic public var type : String?
 	dynamic public var poster : String?
 
+    override public static func primaryKey() -> String? {
+        return "imdbID"
+    }
+    
+    override public func favour() {
+        do {
+            let realm = try Realm()
+            
+            let existing = realm.objects(Search.self).filter("imdbID == %@", self.imdbID ?? "")            
+            if existing.count == 0 {
+                super.favour()
+            }
+        } catch let error as NSError {
+            print("Error while obtaining reference to DB: \(error)")
+        }
+    }
+    
 /**
     Returns an array of models based on given dictionary.
     

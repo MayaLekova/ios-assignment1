@@ -22,19 +22,12 @@ public class Favourable: Object {
 //        Realm.Configuration.defaultConfiguration = config
 //    }
     
-    public let saved = RealmOptional<Bool>()
-    
     public func favour() {
-        if self.saved.value ?? false {
-            return
-        }
-        
         do {
             let realm = try Realm()
             
             do {
                 try realm.write {
-                    self.saved.value = true
                     realm.add(self)
                 }
             } catch let error as NSError {
@@ -50,7 +43,6 @@ public class Favourable: Object {
             
             do {
                 try realm.write {
-                    self.saved.value = false
                     realm.delete(self)
                 }
             } catch let error as NSError {

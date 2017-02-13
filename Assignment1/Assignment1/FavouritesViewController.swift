@@ -11,7 +11,7 @@ import RealmSwift
 
 class FavouritesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    var notificationToken: NotificationToken? = nil
+    var notificationToken: NotificationToken?
 
     var favourites: Results<Search>?
     
